@@ -205,6 +205,7 @@ export default {
     };
   },
   methods: {
+    // 所选运输线路改变
     selectChange(val) {
       this.acessOptions = [];
       console.log(val);
@@ -268,6 +269,7 @@ export default {
         this.pageList.total = res.data.total;
       });
     },
+    // 获取线路列表
     getRoute() {
       const reqData = {
         page: 1,

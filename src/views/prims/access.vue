@@ -154,6 +154,7 @@ export default {
     };
   },
   methods: {
+    // 获取权限列表
     getAccesses() {
       getAccess()
         .then((res) => {
@@ -165,6 +166,7 @@ export default {
     add() {
       this.dialogFormVisible = true;
     },
+    // 确认新增权限
     comfirmEdit() {
       addAccess(this.changeForm)
         .then((res) => {
@@ -179,6 +181,7 @@ export default {
           this.getAccesses();
         });
     },
+    // 删除权限
     del(id) {
       deleteAccess(id)
         .then((res) => {

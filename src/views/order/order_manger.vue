@@ -246,6 +246,7 @@ export default {
     };
   },
   methods: {
+    // 确认新增或修改订单信息
     confirmEdit() {
       if (this.title == "新增") {
         addOrder(this.changeForm).then((res) => {
@@ -263,12 +264,14 @@ export default {
         });
       }
     },
+    // 获取班次列表
     getFeq() {
       getAllFrequency({ page: 1, size: 1000 }).then((res) => {
         console.log(res);
         this.freqList = res.data.freqList;
       });
     },
+    // 获取订单
     getOrder() {
       getOrder(this.searchForm).then((res) => {
         console.log(res);

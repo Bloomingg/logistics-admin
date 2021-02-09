@@ -212,12 +212,14 @@ export default {
     };
   },
   methods: {
+    // 获取班次列表
     getFeq() {
       getAllFrequency({ page: 1, size: 1000 }).then((res) => {
         console.log(res);
         this.freqList = res.data.freqList;
       });
     },
+    // 选择时间
     dateSelect(val) {
       console.log(val);
       if (val != null) {
@@ -253,7 +255,7 @@ export default {
       };
       this.dateValue = "";
     },
-    // 获取列表
+    // 获取跟踪列表
     getTrack() {
       getAllTrack(this.searchForm).then((res) => {
         console.log(res);
@@ -264,30 +266,6 @@ export default {
     //分页
     currentChange(val) {
       console.log(val);
-    },
-    //删除tag
-    handleClose(tag) {
-      this.changeForm.passCity.splice(this.changeForm.passCity.indexOf(tag), 1);
-    },
-    //新增tag
-    showInput() {
-      this.inputVisible = true;
-      this.$nextTick((_) => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
-    },
-    //确定新增
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
-      if (this.changeForm.passCity.indexOf(inputValue) != -1) {
-        this.$message("途经城市不能重复！");
-      } else {
-        if (inputValue) {
-          this.changeForm.passCity.push(inputValue);
-        }
-      }
-      this.inputVisible = false;
-      this.inputValue = "";
     },
     //新增
     add() {

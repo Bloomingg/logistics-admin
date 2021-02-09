@@ -193,9 +193,11 @@ export default {
     };
   },
   methods: {
+    // 权限选择关闭时已选角色列表
     hideChange() {
       this.accessArr = [];
     },
+    // 获取权限列表
     getAccesses() {
       getAccess()
         .then((res) => {
@@ -205,6 +207,7 @@ export default {
         })
         .catch((err) => this.$message.error(err.msg));
     },
+    // 获取角色列表
     getRole() {
       getRoles(this.pageList).then((res) => {
         console.log(res);
@@ -213,6 +216,7 @@ export default {
         this.pageList.current = res.page;
       });
     },
+    // 翻页
     currentChange(val) {
       this.pageList.page = val;
       this.getRole();
@@ -220,6 +224,7 @@ export default {
     accessSelect(val) {
       console.log(val);
     },
+    // 新增或修改角色对应权限
     submitAccess() {
       console.log(this.accessArr);
       if (this.accessArr.length == 0) return false;
@@ -245,6 +250,7 @@ export default {
     add() {
       this.dialogFormVisible = true;
     },
+    // 编辑角色 获取选择数据
     edit(id) {
       this.role_id = id;
       getRoleAccess(id).then((res) => {
@@ -258,6 +264,7 @@ export default {
         }
       });
     },
+    // 删除角色
     del(id) {
       deleteRole(id)
         .then((res) => {
@@ -269,6 +276,7 @@ export default {
           this.getRole();
         });
     },
+    // 确定编辑
     comfirmEdit() {
       if (this.changeForm.title == "") return false;
       addRole(this.changeForm).then((res) => {
@@ -279,6 +287,7 @@ export default {
         this.dialogFormVisible = false;
       });
     },
+    // 重置表单
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },

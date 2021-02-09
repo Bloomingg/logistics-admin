@@ -186,7 +186,13 @@
 </template>
 
 <script>
-import { getUserList, updateStatus, getRoles, addUser,deleteUser } from "@/api/user";
+import {
+  getUserList,
+  updateStatus,
+  getRoles,
+  addUser,
+  deleteUser,
+} from "@/api/user";
 
 export default {
   name: "UserList",
@@ -226,7 +232,6 @@ export default {
       inputValue: "",
       title: "",
       supperId: "",
-      dynamicTags: ["标签一", "标签二"],
       userData: [],
       roleData: [],
       searchForm: {
@@ -251,14 +256,16 @@ export default {
     };
   },
   methods: {
+    // 提交新增
     submitAdd() {
       addUser(this.changeForm).then((res) => {
         console.log(res);
-        this.$message.success(res.msg)
-        this.getUserList()
+        this.$message.success(res.msg);
+        this.getUserList();
         this.dialogFormVisible = false;
       });
     },
+    // 选择角色
     roleSelect(row) {
       console.log(row);
       if (row.role_id == this.supperId) {
@@ -273,6 +280,7 @@ export default {
       });
     },
     // submitRole() {},
+    // 账户状态控制
     statusChange(row) {
       updateStatus(row).then((res) => {
         console.log(res);
@@ -280,6 +288,7 @@ export default {
         this.getUserList();
       });
     },
+    // 获取角色列表
     getRole() {
       getRoles({ page: 1, size: 999 }).then((res) => {
         console.log(res);
@@ -290,6 +299,7 @@ export default {
         this.getUserList();
       });
     },
+    // 获取用户列表
     getUserList() {
       getUserList(this.searchForm).then((res) => {
         console.log(res);
@@ -349,10 +359,10 @@ export default {
     },
     //删除
     del(id) {
-      deleteUser(id).then(res=>{
-        this.$message.success(res.msg)
-        this.getUserList()
-      })
+      deleteUser(id).then((res) => {
+        this.$message.success(res.msg);
+        this.getUserList();
+      });
     },
     //查询
     search() {},
