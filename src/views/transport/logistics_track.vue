@@ -235,15 +235,20 @@ export default {
       if (this.title == "新增") {
         addTrack(this.changeForm).then((res) => {
           console.log(res);
+          this.getTrack();
           this.$message.success(res.msg);
+          this.dialogFormVisible = fals;
         });
       } else {
         updateTrack(this.changeForm).then((res) => {
           console.log(res);
+          this.getTrack();
+          this.$message.success(res.msg);
+          this.dialogFormVisible = fals;
         });
       }
-      this.getTrack();
-      this.dialogFormVisible = false;
+      // this.getTrack();
+      // this.dialogFormVisible = false;
     },
     // 关闭编辑弹窗并重置form
     closForm() {

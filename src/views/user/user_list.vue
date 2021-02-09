@@ -49,9 +49,9 @@
     <!-- 用户列表 -->
     <el-card shadow="always">
       <el-table size="small" :data="userData" style="width: 100%">
-        <el-table-column prop="_id" label="用户ID" min-width="180" />
-        <el-table-column prop="username" label="用户帐名" min-width="120" />
-        <el-table-column prop="role" label="用户角色" min-width="120">
+        <el-table-column prop="_id" label="用户ID" min-width="120" />
+        <el-table-column prop="username" label="用户帐名" min-width="80" />
+        <el-table-column prop="role" label="用户角色" min-width="80">
           <template scope="scope">
             <el-popover placement="right" width="300" trigger="click">
               <div class="access-box">
@@ -85,12 +85,12 @@
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column prop="add_time" label="注册时间" min-width="120">
+        <el-table-column prop="add_time" label="注册时间" min-width="80">
           <template scope="scope">
             {{ scope.row.add_time | dateFilter }}
           </template>
         </el-table-column>
-        <el-table-column prop="last_time" label="最近登录时间" min-width="180">
+        <el-table-column prop="last_time" label="最近登录时间" min-width="80">
           <template scope="scope">
             {{ scope.row.last_time | dateFilter }}
           </template>
@@ -98,6 +98,7 @@
         <el-table-column prop="status" label="账号状态" min-width="80">
           <template slot-scope="scope">
             <el-switch
+              v-if="scope.row.is_Supper != 1"
               @change="statusChange(scope.row)"
               style="display: block"
               v-model="scope.row.status"
@@ -114,6 +115,14 @@
         <el-table-column prop="status" label="操作" min-width="80">
           <template slot-scope="scope">
             <el-button
+              size="small"
+              type="primary"
+              icon="el-icon-edit"
+              circle
+              @click="edit(scope.row)"
+            ></el-button>
+            <el-button
+              v-if="scope.row.is_Supper != 1"
               size="small"
               type="danger"
               icon="el-icon-delete"
@@ -149,6 +158,7 @@
         <el-form-item label="密码">
           <el-input
             v-model="changeForm.password"
+            type="password"
             placeholder="请输入密码"
           ></el-input>
         </el-form-item>
@@ -258,12 +268,27 @@ export default {
   methods: {
     // 提交新增
     submitAdd() {
-      addUser(this.changeForm).then((res) => {
-        console.log(res);
-        this.$message.success(res.msg);
-        this.getUserList();
-        this.dialogFormVisible = false;
-      });
+      if (this.title == "新增") {
+        addUser(this.changeForm).then((res) => {
+          console.log(res);
+          this.$message.success(res.msg);
+          this.getUserList();
+          this.dialogFormVisible = false;
+        });
+      } else {
+        if (this.changeForm.role_id == this.supperId) {
+          this.changeForm.is_Supper = 1;
+        } else {
+          this.changeForm.is_Supper = 0;
+        }
+        this.changeForm.modify = true;
+        updateStatus(this.changeForm).then((res) => {
+          console.log(res);
+          this.$message(res.msg);
+          this.getUserList();
+          this.dialogFormVisible = false;
+        });
+      }
     },
     // 选择角色
     roleSelect(row) {
@@ -353,8 +378,10 @@ export default {
       this.dialogFormVisible = true;
     },
     //编辑
-    edit(id) {
+    edit(row) {
       this.title = "编辑";
+      this.changeForm = Object.assign({}, row);
+      this.changeForm.password = "";
       this.dialogFormVisible = true;
     },
     //删除

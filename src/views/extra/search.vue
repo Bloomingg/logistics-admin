@@ -17,12 +17,13 @@
     </div>
     <van-popup
       v-model="showPopover"
+      @close="colsePop"
       round
       closeable
       position="bottom"
       :style="{ height: '50%' }"
     >
-      <van-steps direction="vertical" :active="0">
+      <van-steps direction="vertical" :active="current">
         <van-step v-for="sta in statusList" :key="sta.title">
           <h3>{{ sta.title }}</h3>
           <p>{{ sta.time }}</p>
@@ -36,7 +37,12 @@
 import { getOrder } from "@/api/order";
 import Vue from "vue";
 import { Search, Popup, Button, Step, Steps, Toast } from "vant";
-Vue.use(Search, Popup, Button, Step, Steps, Toast);
+Vue.use(Search);
+Vue.use(Popup);
+Vue.use(Button);
+Vue.use(Step);
+Vue.use(Steps);
+Vue.use(Toast);
 export default {
   name: "Search",
   components: {
@@ -51,6 +57,7 @@ export default {
   data() {
     return {
       showPopover: false,
+      current: 0,
       statusList: [],
       searchForm: {
         orderId: "",
@@ -75,6 +82,10 @@ export default {
       return y + "-" + m + "-" + d + " " + h + ":" + minute + ":" + second;
     },
     onSearch() {
+      if (this.searchForm.orderId == "") {
+        Toast.fail("请输入订单号");
+        return false;
+      }
       getOrder(this.searchForm).then((res) => {
         console.log(res);
         const orderList = res.data.orderList;
@@ -195,7 +206,11 @@ export default {
         } else {
           Toast.fail("暂无该订单信息");
         }
+        this.current = this.statusList.length - 1;
       });
+    },
+    colsePop() {
+      this.statusList = [];
     },
   },
 };

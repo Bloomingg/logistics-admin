@@ -199,14 +199,17 @@ export default {
         addRoute(this.changeForm).then((res) => {
           console.log(res);
           this.$message.success(res.msg);
+          this.getRoute();
+          this.dialogFormVisible = false;
         });
       } else {
         updateRoute(this.changeForm).then((res) => {
           console.log(res);
+          this.$message.success(res.msg);
+          this.getRoute();
+          this.dialogFormVisible = false;
         });
       }
-      this.getRoute();
-      this.dialogFormVisible = false;
     },
     // 关闭编辑弹窗并重置form
     closForm() {

@@ -237,11 +237,13 @@ export default {
       if (this.title == "新增") {
         addFrequency(this.changeForm).then((res) => {
           console.log(res);
+          this.getFrequency();
           this.$message.success(res.msg);
         });
       } else {
         updateFrequency(this.changeForm).then((res) => {
           console.log(res);
+          this.getFrequency();
           this.$message.success(res.msg);
         });
       }
