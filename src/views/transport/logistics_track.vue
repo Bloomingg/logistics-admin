@@ -237,14 +237,14 @@ export default {
           console.log(res);
           this.getTrack();
           this.$message.success(res.msg);
-          this.dialogFormVisible = fals;
+          this.dialogFormVisible = false;
         });
       } else {
         updateTrack(this.changeForm).then((res) => {
           console.log(res);
           this.getTrack();
           this.$message.success(res.msg);
-          this.dialogFormVisible = fals;
+          this.dialogFormVisible = false;
         });
       }
       // this.getTrack();

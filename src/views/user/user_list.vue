@@ -157,7 +157,7 @@
         </el-form-item>
         <el-form-item label="密码">
           <el-input
-            v-model="changeForm.password"
+            v-model="resetPassword"
             type="password"
             placeholder="请输入密码"
           ></el-input>
@@ -175,6 +175,7 @@
         </el-form-item>
         <el-form-item label="是否启用">
           <el-switch
+          v-if="changeForm.is_Supper != 1"
             style="display: block"
             v-model="changeForm.status"
             active-color="#13ce66"
@@ -242,6 +243,7 @@ export default {
       inputValue: "",
       title: "",
       supperId: "",
+      resetPassword:"",
       userData: [],
       roleData: [],
       searchForm: {
@@ -282,6 +284,7 @@ export default {
           this.changeForm.is_Supper = 0;
         }
         this.changeForm.modify = true;
+        if(this.resetPassword!="") this.changeForm.password=this.resetPassword
         updateStatus(this.changeForm).then((res) => {
           console.log(res);
           this.$message(res.msg);
@@ -348,30 +351,6 @@ export default {
     currentChange(val) {
       console.log(val);
     },
-    //删除tag
-    handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-    },
-    //新增tag
-    showInput() {
-      this.inputVisible = true;
-      this.$nextTick((_) => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
-    },
-    //确定新增
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
-      if (this.dynamicTags.indexOf(inputValue) != -1) {
-        this.$message("途经城市不能重复！");
-      } else {
-        if (inputValue) {
-          this.dynamicTags.push(inputValue);
-        }
-      }
-      this.inputVisible = false;
-      this.inputValue = "";
-    },
     //新增
     add() {
       this.title = "新增";
@@ -381,7 +360,7 @@ export default {
     edit(row) {
       this.title = "编辑";
       this.changeForm = Object.assign({}, row);
-      this.changeForm.password = "";
+      // this.changeForm.password = "";
       this.dialogFormVisible = true;
     },
     //删除
