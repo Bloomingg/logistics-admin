@@ -283,12 +283,16 @@ export default {
         } else {
           this.changeForm.is_Supper = 0;
         }
-        this.changeForm.modify = true;
-        if(this.resetPassword!="") this.changeForm.password=this.resetPassword
+        
+        if(this.resetPassword!=""){
+          this.changeForm.modify = true;
+          this.changeForm.password=this.resetPassword
+        } 
         updateStatus(this.changeForm).then((res) => {
           console.log(res);
           this.$message(res.msg);
           this.getUserList();
+          this.resetPassword=""
           this.dialogFormVisible = false;
         });
       }
