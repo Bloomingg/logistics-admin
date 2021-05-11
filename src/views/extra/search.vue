@@ -219,6 +219,11 @@ export default {
 .search-box {
   position: relative;
   height: 100vh;
+  background: url("../../assets/logistic.jpeg") no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-position: center 0;
   // display: flex;
   // flex-direction: row;
   // align-content: center;
@@ -232,6 +237,9 @@ export default {
     // .van-search__action {
     //   background-color: #b6b6b6;
     // }
+  }
+  .van-search {
+    background-color: transparent;
   }
   .van-step--vertical {
     padding: 0;

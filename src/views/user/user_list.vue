@@ -175,7 +175,7 @@
         </el-form-item>
         <el-form-item label="是否启用">
           <el-switch
-          v-if="changeForm.is_Supper != 1"
+            v-if="changeForm.is_Supper != 1"
             style="display: block"
             v-model="changeForm.status"
             active-color="#13ce66"
@@ -243,7 +243,7 @@ export default {
       inputValue: "",
       title: "",
       supperId: "",
-      resetPassword:"",
+      resetPassword: "",
       userData: [],
       roleData: [],
       searchForm: {
@@ -283,16 +283,16 @@ export default {
         } else {
           this.changeForm.is_Supper = 0;
         }
-        
-        if(this.resetPassword!=""){
+
+        if (this.resetPassword != "") {
           this.changeForm.modify = true;
-          this.changeForm.password=this.resetPassword
-        } 
+          this.changeForm.password = this.resetPassword;
+        }
         updateStatus(this.changeForm).then((res) => {
           console.log(res);
           this.$message(res.msg);
           this.getUserList();
-          this.resetPassword=""
+          this.resetPassword = "";
           this.dialogFormVisible = false;
         });
       }
@@ -354,6 +354,8 @@ export default {
     //分页
     currentChange(val) {
       console.log(val);
+      this.searchForm.page = val;
+      this.getUserList();
     },
     //新增
     add() {

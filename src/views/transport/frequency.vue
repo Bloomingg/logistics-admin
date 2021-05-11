@@ -288,6 +288,8 @@ export default {
     //分页
     currentChange(val) {
       console.log(val);
+      this.searchForm.page = val;
+      this.getFrequency();
     },
     //确定新增
     handleInputConfirm() {

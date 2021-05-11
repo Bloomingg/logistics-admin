@@ -288,7 +288,9 @@ export default {
     },
     //分页
     currentChange(val) {
-      console.log(val);
+      // console.log(val);
+      this.searchForm.page = val;
+      this.getOrder();
     },
     //删除tag
     handleClose(tag) {

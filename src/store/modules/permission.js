@@ -10,9 +10,6 @@ import {
  */
 function hasPermission(accesses, route) {
   if (route.meta && route.meta.flag == undefined) {
-    console.log(accesses);
-    console.log(route);
-    console.log(route.meta.flag);
     return accesses.some(access => route.meta.title == access.module_name)
   } else {
     return true

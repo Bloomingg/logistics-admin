@@ -271,6 +271,8 @@ export default {
     //分页
     currentChange(val) {
       console.log(val);
+      this.searchForm.page = val;
+      this.getTrack();
     },
     //新增
     add() {
